@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app = "simpleApp">
 	<head>
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -15,10 +15,196 @@
 			integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
 			crossorigin="anonymous"
 		/>
+        <script src="plugins-libraries/bootstrap-5.1.0-dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 	</head>
-	<body></body>
-	<script src="plugins-libraries/bootstrap-5.1.0-dist/js/bootstrap.bundle.min.js"></script>
-	<script src="plugins-libraries/bootstrap-5.1.0-dist/js/register.js"></script>
-	<script src="plugins-libraries/bootstrap-5.1.0-dist/js/jquery.js"></script>
-	<script src="plugins-libraries/bootstrap-5.1.0-dist/js/angular.js"></script>
+	<body>
+        <nav
+			class="
+				navbar
+				bg-primary
+				p-2
+				text-dark
+				bg-opacity-10
+				shadow
+				p-3
+				mb-5
+				rounded
+			"
+		>
+			<div class="container-fluid">
+				<a class="navbar-brand" href="#">
+					<img src="img/prodian_logo.png" alt="logo" width="100" height="50" />
+				</a>
+				<h1 class="" style="color: #3e2c41; padding-right: 80px">
+					Employee Details
+				</h1>
+				<form class="d-flex">
+					<button
+						type="button"
+						class="btn btn-primary"
+						data-bs-toggle="modal"
+						data-bs-target="#exampleModal"
+					>
+						<i class="fas fa-plus"></i>
+						Add Employee
+					</button>
+				</form>
+			</div>
+		</nav>
+        <main class="container">
+            <div ng-controller = "simpleController">
+        <!--Employee table-->
+        <table
+            id="table"
+            class="
+                
+                table table-bordered
+                border-primary
+                bg-primary
+                p-2
+                text-dark
+                bg-opacity-10
+                shadow
+                p-3
+                mb-5
+                rounded
+                text-center
+            "
+        >
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Salary</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat = "entry in collection">
+                    <td>{{$index+1}}</td>
+                    <td>{{entry.name}}</td>
+                    <td>{{entry.role}}</td>
+                    <td>{{entry.salary}}</td>
+
+                </tr>
+            </tbody>
+        </table>
+        <div
+			class="modal fade"
+			id="exampleModal"
+			tabindex="-1"
+			aria-labelledby="exampleModalLabel"
+			aria-hidden="true"
+		>
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="exampleModalLabel">Employee Details</h4>
+						<button
+							type="button"
+							class="btn-close"
+							data-bs-dismiss="modal"
+							aria-label="Close"
+						></button>
+					</div>
+					<div class="modal-body">
+                    <form
+							class="
+								container
+								form
+								p-4
+								mt-5
+								p-3
+								bg-primary
+								p-2
+								text-dark
+								bg-opacity-25
+								mb-5
+								rounded
+                                form-control
+							"
+                            ng-submit = "addEntry()"
+						>
+							
+								<div class="mb-3">
+									<span class="text-primary"><i class="fas fa-user"></i></span>
+									<label for="exampleInputPassword1" class="form-label"
+										><strong>Name</strong></label
+									>
+									<input
+										type="text"
+                                        ng-model = "newData.name"
+
+										class="form-control"
+										id="name"
+										placeholder="Enter Employee Name"
+                                        required
+									/>
+								</div>
+								<div class="mb-3">
+									<span class="text-primary"
+										><i class="fas fa-user-tag"></i
+									></span>
+									<label for="exampleInputPassword1" class="form-label"
+										><strong>Role</strong></label
+									>
+									<input
+										type="text"
+                                        ng-model = "newData.role"
+										class="form-control"
+										id="role"
+										placeholder="Enter Employee Role"
+                                        required
+									/>
+								</div>
+								<div class="mb-3">
+									<span class="text-primary"
+										><i class="fas fa-rupee-sign"></i
+									></span>
+									<label for="exampleInputPassword1" class="form-label"
+										><strong>Salary</strong></label
+									>
+									<input
+										type="number"
+                                        ng-model = "newData.salary"
+										class="form-control"
+										id="salary"
+										placeholder="Enter Employee Salary"
+                                        required
+									/>
+                                    <div class="modal-footer">
+                                        
+                                        <button id="submit" type="submit" class="btn btn-primary"  >
+                                            Save changes
+                                        </button>
+                                    </div>
+								</div>
+
+								<br />
+								<br />
+							</div>
+                            </div>
+                            </div>
+                            </div>
+                            </div>
+                            </main>
+                            
+						</form>
+
+    </div>
+</body>
+<script>
+    var app = angular.module("simpleApp",[]);
+
+    app.controller("simpleController",function($scope){
+        $scope.collection = [{name:"Venkat",role:"Front-end Developer",salary:25000}];
+
+    $scope.addEntry = function(){
+        $scope.collection.push($scope.newData);
+        $scope.newData = '';
+    };
+});
+</script>
+	
 </html>
